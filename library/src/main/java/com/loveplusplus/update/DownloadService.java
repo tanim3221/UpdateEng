@@ -12,9 +12,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class DownloadService extends IntentService {
-    // 10-10 19:14:32.618: D/DownloadService(1926): 测试缓存：41234 32kb
-    // 10-10 19:16:10.892: D/DownloadService(2069): 测试缓存：41170 1kb
-    // 10-10 19:18:21.352: D/DownloadService(2253): 测试缓存：39899 10kb
+    // 10-10 19:14:32.618: D/DownloadService(1926): Test cache：41234 32kb
+    // 10-10 19:16:10.892: D/DownloadService(2069): Test cache：41170 1kb
+    // 10-10 19:18:21.352: D/DownloadService(2253): Test cache：39899 10kb
     private static final int BUFFER_SIZE = 10 * 1024; // 8k ~ 32K
     private static final String TAG = "DownloadService";
 
@@ -60,13 +60,13 @@ public class DownloadService extends IntentService {
                 out.write(buffer, 0, byteread);
 
                 int progress = (int) (bytesum * 100L / bytetotal);
-                // 如果进度与之前进度相等，则不更新，如果更新太频繁，否则会造成界面卡顿
+                // If the progress is equal to the previous progress, it will not be updated. If the update is too frequent, it will cause the interface to be stuck.
                 if (progress != oldProgress) {
                     notificationHelper.updateProgress(progress);
                 }
                 oldProgress = progress;
             }
-            // 下载完成
+            // Download completed
 
             ApkUtils.installAPk(this, apkFile);
 
